@@ -1,0 +1,36 @@
+
+=== Seed 42 ===
+Stage 0: auto-rewards
+  Stage 0 done. Final loss: 0.4209
+
+Stage 1: training...
+  step   200 | stage 1 | loss 0.0268 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   300 | stage 1 | loss 0.0101 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 2
+
+Stage 2: training...
+  step   400 | stage 2 | loss 0.0229 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   500 | stage 2 | loss 0.0089 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 3
+
+Stage 3: training...
+  Initializing context attractor in W_rec...
+  Context attractor init: v_norm=0.449, lambda 0.284->0.999, eff_eig=0.9999 (half-life ~6930 steps = 55.4 trials)
+Traceback (most recent call last):
+  File "C:\Users\peter\Dropbox\Desktop\2026\astabot\astabot-pavi\training\train_rnn.py", line 550, in <module>
+    rnn = train_rnn(seed, cfg)
+  File "C:\Users\peter\Dropbox\Desktop\2026\astabot\astabot-pavi\training\train_rnn.py", line 471, in train_rnn
+    loss = train_step(
+  File "C:\Users\peter\Dropbox\Desktop\2026\astabot\astabot-pavi\training\train_rnn.py", line 382, in train_step
+    loss = compute_loss(rnn, session_data, stage, fa_loss_weight,
+  File "C:\Users\peter\Dropbox\Desktop\2026\astabot\astabot-pavi\training\train_rnn.py", line 170, in compute_loss
+    bce_vals = bce_fn(z_resp_clamped, t_resp)
+  File "C:\Users\peter\anaconda3\lib\site-packages\torch\nn\modules\module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Users\peter\anaconda3\lib\site-packages\torch\nn\modules\module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\peter\anaconda3\lib\site-packages\torch\nn\modules\loss.py", line 618, in forward
+    return F.binary_cross_entropy(input, target, weight=self.weight, reduction=self.reduction)
+  File "C:\Users\peter\anaconda3\lib\site-packages\torch\nn\functional.py", line 3122, in binary_cross_entropy
+    return torch._C._nn.binary_cross_entropy(input, target, weight, reduction_enum)
+RuntimeError: all elements of input should be between 0 and 1

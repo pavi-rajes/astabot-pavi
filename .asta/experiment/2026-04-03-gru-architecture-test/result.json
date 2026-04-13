@@ -1,0 +1,12 @@
+{
+  "gru_stages_0_2_ok": true,
+  "stage1_step": 400,
+  "stage2_step": 600,
+  "d_prime_inter_at_100": 0.0,
+  "d_prime_inter_at_200": 0.0,
+  "d_prime_inter_at_300": 0.0,
+  "signal_retention_after_125_steps": 0.8826,
+  "avg_gate_value_after_training": 0.2,
+  "key_findings": "GRU Stages 0-2 OK. Stage 3 d'_inter: 0.00 / 0.00 / 0.00 at steps 100/200/300. Signal retention 0.8826 vs vanilla ~0.008. Avg gate 0.200.",
+  "recommendation": "GRU alone insufficient; combine with teacher forcing or increase gate initialization"
+}

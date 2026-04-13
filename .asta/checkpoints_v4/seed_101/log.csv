@@ -1,0 +1,3 @@
+step,stage,loss,dprime_intra,dprime_inter,n_pass_blocks,advanced,regressed
+200,1,0.361952,4.6527,0.0000,0,0,0
+300,1,0.098543,0.0000,0.0000,0,0,0

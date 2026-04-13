@@ -1,0 +1,15 @@
+Yikes! Top-level run_panda() failed!! Error: Max retries reached...giving up...
+Traceback:
+Traceback (most recent call last):
+  File "/Users/pavir/.local/share/uv/tools/panda/lib/python3.13/site-packages/panda/panda_agent/panda_agent.py", line 269, in run_panda
+    save_dialog()
+    ~~~~~~~~~~~^^
+  File "/Users/pavir/.local/share/uv/tools/panda/lib/python3.13/site-packages/panda/panda_agent/report_writer.py", line 414, in save_dialog
+    named_vars = get_vars(my_globals.code_so_far)
+  File "/Users/pavir/.local/share/uv/tools/panda/lib/python3.13/site-packages/panda/panda_agent/report_writer.py", line 475, in get_vars
+    vars_json, vars_str = call_llm_json(prompt, model=agent_config.PANDA_LLM)
+                          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pavir/.local/share/uv/tools/panda/lib/python3.13/site-packages/panda/utils/ask_llm.py", line 138, in call_llm_json
+    raise MaxRetriesExceeded("Max retries reached...giving up...")
+panda.utils.ask_llm.MaxRetriesExceeded: Max retries reached...giving up...
+

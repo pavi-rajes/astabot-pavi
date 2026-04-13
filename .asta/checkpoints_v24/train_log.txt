@@ -1,0 +1,22 @@
+
+=== Seed 42 ===
+Stage 0: auto-rewards
+  Stage 0 done. Final loss: 0.4209
+
+Stage 1: training...
+  step   150 | stage 1 | loss 0.1111 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   200 | stage 1 | loss 0.0258 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 2
+
+Stage 2: training...
+  step   250 | stage 2 | loss 0.0712 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   300 | stage 2 | loss 0.0263 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 3
+
+Stage 3: training...
+  Initializing context attractor in W_rec...
+  Context attractor (SR scaling): 1.1517 -> 0.9995 (x0.868), eff_eig=0.9999 (half-life ~6930 steps = 55.4 trials)
+  Post-init SR verified: 0.9995 < 1.0 (attractor preserved)
+  step   350 | stage 3 | loss 0.4420 | d'_intra 4.52 | d'_inter 0.05 | pass_blocks 0 | 
+  step   400 | stage 3 | loss 0.3751 | d'_intra 4.59 | d'_inter 0.02 | pass_blocks 0 | 
+  step   450 | stage 3 | loss 0.2617 | d'_intra 4.55 | d'_inter -0.09 | pass_blocks 0 | 

@@ -1,0 +1,20 @@
+
+=== Seed 42 ===
+Stage 0: auto-rewards
+  Stage 0 done. Final loss: 0.4209
+
+Stage 1: training...
+  step   200 | stage 1 | loss 0.0268 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   300 | stage 1 | loss 0.0101 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 2
+
+Stage 2: training...
+  step   400 | stage 2 | loss 0.0229 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   500 | stage 2 | loss 0.0089 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 3
+
+Stage 3: training...
+  Initializing context attractor in W_rec...
+  Context attractor init: v_norm=0.449, lambda 0.284->0.995, eff_eig=0.9990 (half-life ~693 steps = 5.5 trials)
+  WARNING: Post-init SR clip triggered: 1.0679 -> 1.0000 (pre-clip may not have worked)
+  step   600 | stage 3 | loss 0.3658 | d'_intra 4.34 | d'_inter 0.16 | pass_blocks 0 | 

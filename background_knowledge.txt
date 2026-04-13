@@ -1,0 +1,69 @@
+# Background Knowledge – Stage 3: Context Attractor Initialization
+
+## Current Status
+v11 run started (PID 39244). Stages 1-2 training. Stage 3 will use context attractor init.
+
+## Core Problem: Vanishing Context Gradients
+
+With alpha=dt/tau = 0.020/0.100 = 0.2, RNN dynamics are:
+  y_{t+1} = (1-alpha)*y_t + alpha*relu(W_rec@y_t + W_in@u_t + b_rec)
+
+For eigenvalue lambda of W_rec, the EFFECTIVE eigenvalue in discrete time is:
+  eff_lambda = (1-alpha) + alpha*lambda = 0.8 + 0.2*lambda
+
+For W_rec spectral radius = 0.90 (observed in Stage 2 checkpoint):
+  eff_lambda_max = 0.8 + 0.2*0.90 = 0.980
+
+Context signal decay:
+- After 1 trial (125 timesteps): 0.980^125 = 0.0079 (0.8%)
+- After 5 trials (625 steps): 0.980^625 = 3×10^{-6}
+- After 90 trials (11250 steps): ≈ 10^{-97} (completely gone)
+
+Result: Block context established by instruction trials VANISHES within 1 trial.
+Both training BPTT windows (Block 1 and Block 2) see near-zero context state.
+Gradients cancel: Block 1 says "suppress AUD1", Block 2 says "lick AUD1".
+Network converges to context-invariant strategy: lick VIS1+AUD1, suppress VIS2+AUD2.
+
+## The Fix: Context Attractor Initialization
+
+Before Stage 3, add a rank-1 update to W_rec:
+  v = normalize(W_in[:,VIS1] - W_in[:,AUD1])  -- context direction
+  W_rec += (lambda_target - <v, W_rec v>) * v ⊗ v^T
+
+where lambda_target = (0.999 - 0.8) / 0.2 = 0.995 gives effective eigenvalue = 0.999.
+
+Effect:
+  - v becomes an approximate eigenvector of W_rec with eigenvalue 0.995
+  - eff_lambda in direction v = 0.8 + 0.2*0.995 = 0.999
+  - Context half-life = ln(2) / |1-0.999| = 693 timesteps ≈ 5.5 trials
+  - After 5 instruction trials: 0.999^625 = 0.535 (53% of context remains!)
+  - After 90 trials: 0.999^11250 = 1.5×10^{-5} (small but meaningful vs 10^{-97})
+
+With this initialization:
+  - Block 1 context state at start of Block 2 is NONZERO (encodes VIS1 context)
+  - Block 2 context state at start of Block 2 is different (kicked by AUD1 instruction)
+  - BPTT windows see different context states → gradients no longer cancel
+
+## Why max_sr=4.0 for Stage 3
+
+The context attractor creates lambda_target=0.995 in direction v.
+With W_rec operator norm = 2.0 initially, and the rank-1 update adding delta≈0.995-<lambda_current>...
+After the update, W_rec operator norm may exceed 2.0.
+Using max_sr=4.0 prevents clipping the attractor eigenvalue during training.
+
+## Expected outcome
+If the context attractor provides enough context persistence:
+1. Block 1 ends with context state encoding "VIS1 was rewarded"
+2. Block 2 instruction trial kicks context toward "AUD1 is rewarded"
+3. BPTT gradient can learn that "high VIS1-context → suppress AUD1"
+4. d'_inter should become positive after some training steps
+
+## Previous failed approaches
+- v9: 90-trial BPTT per block, 1100 steps → d'_intra=4.65, d'_inter=0.0
+- v10: 180-trial single BPTT window (entire session) → same result, 5× slower
+
+## v11 run parameters
+python training/train_rnn.py --n_ensemble 1 --n_units 100 --max_steps 5000
+  --eval_every 100 --n_eval_sessions 3 --batch_size 1
+  --bptt_trials 15 --max_bptt_windows 8 --train_n_blocks 2
+  --outdir checkpoints_v11 --seed_start 42

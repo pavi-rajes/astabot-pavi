@@ -1,0 +1,27 @@
+
+=== Seed 42 ===
+Stage 0: auto-rewards
+  Stage 0 done. Final loss: 0.4209
+
+Stage 1: training...
+  step   200 | stage 1 | loss 0.0268 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   300 | stage 1 | loss 0.0101 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 2
+
+Stage 2: training...
+  step   400 | stage 2 | loss 0.0229 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | 
+  step   500 | stage 2 | loss 0.0089 | d'_intra 4.65 | d'_inter 0.00 | pass_blocks 0 | ADVANCED
+  -> Advanced to Stage 3
+
+Stage 3: training...
+  Initializing context attractor in W_rec...
+Traceback (most recent call last):
+  File "C:\Users\peter\Dropbox\Desktop\2026\astabot\astabot-pavi\training\train_rnn.py", line 526, in <module>
+    rnn = train_rnn(seed, cfg)
+  File "C:\Users\peter\Dropbox\Desktop\2026\astabot\astabot-pavi\training\train_rnn.py", line 428, in train_rnn
+    initialize_context_attractor(rnn, alpha=rnn.alpha)
+  File "C:\Users\peter\Dropbox\Desktop\2026\astabot\astabot-pavi\training\train_rnn.py", line 322, in initialize_context_attractor
+    print(f"  Context attractor init: v_norm={v_norm:.3f}, "
+  File "C:\Users\peter\anaconda3\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 52: character maps to <undefined>
