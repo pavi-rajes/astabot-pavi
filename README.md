@@ -124,7 +124,10 @@ See `research_state.md` for the full experimental log and `insights.md` for a de
 ## Setup
 
 ```bash
-# Requires conda with the latent_circuit environment
+# Create the conda environment
+conda env create -f environment.yml
+
+# Activate it
 conda activate latent_circuit
 
 # Run training (example: context teacher forcing v2)
@@ -133,7 +136,7 @@ python training/train_ctx_teacher.py
 # Checkpoints are saved to .asta/checkpoints_ctx_teacher/
 ```
 
-**Dependencies:** PyTorch (CPU), NumPy, SciPy (installed in the `latent_circuit` conda environment).
+**Key dependencies:** PyTorch 2.10 (CPU), NumPy, SciPy, matplotlib, pandas, tensorboard. See `environment.yml` for the full list.
 
 ## Current Status
 
